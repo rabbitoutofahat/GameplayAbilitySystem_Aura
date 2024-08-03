@@ -4,11 +4,83 @@
 #include "Player/AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "interaction/EnemyInterface.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true; // In multiplayer, when an entity changes on the server, that change will be replicated/sent down to all clients connected to the server 
 
+}
+
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace();
+
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	if (!CursorHit.bBlockingHit) return;
+	
+	// Cast REMOVED, see TScriptInterface wrapper in the .h file
+	LastActor = ThisActor;
+	ThisActor = CursorHit.GetActor(); 
+
+	/**
+	* Line trace from cursor. There are several scenarios:
+	* A. LastActor is null and ThisActor is null
+	*    - Do nothing
+	* B. LastActor is null but ThisActor is valid
+	*    - Highlight ThisActor
+	* C. LastActor is valid and ThisActor is null
+	*    - UnHighlight LastActor
+	* D. Both actors are valid, but LastActor != ThisActor
+	*    - UnHighlight LastActor, and Highlight ThisActor
+	* E. Both actors are valid, and are the same actor
+	*    - Do nothing
+	*/
+
+	if (LastActor == nullptr)
+	{
+
+		if (ThisActor != nullptr)
+		{
+			// Case B
+			ThisActor->HighlightActor();
+		}
+		else
+		{
+			// Case A - do nothing
+		}
+	}
+	else // LastActor is valid
+	{
+
+		if (ThisActor == nullptr)
+		{
+			// Case C
+			LastActor->UnHighlightActor();
+		}
+		else // Both actors are valid
+		{
+			if (LastActor != ThisActor)
+			{
+				// Case D
+				LastActor->UnHighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				// Case E - do nothing
+			}
+		}
+	}
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -61,3 +133,5 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	}
 
 }
+
+
