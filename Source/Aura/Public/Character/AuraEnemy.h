@@ -18,9 +18,8 @@ class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 
 // As soon as we added the pure virtual functions Highlight/UnhighlightActor, this became an abstract class which cannot be instantiated without overriding
 public:
+	AAuraEnemy();
 	virtual void HighlightActor() override; 
 	virtual void UnHighlightActor() override;
 
-	UPROPERTY(BlueprintReadOnly)
-	bool bHighlighted = false;
 };

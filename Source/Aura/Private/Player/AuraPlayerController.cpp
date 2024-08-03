@@ -8,6 +8,7 @@
 
 AAuraPlayerController::AAuraPlayerController()
 {
+
 	bReplicates = true; // In multiplayer, when an entity changes on the server, that change will be replicated/sent down to all clients connected to the server 
 
 }
@@ -81,6 +82,7 @@ void AAuraPlayerController::CursorTrace()
 			}
 		}
 	}
+
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -122,7 +124,7 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X); // Gives us the normalised forward vector that corresponds to the yaw rotation vector
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y); // "" right ""
 
 	if (APawn* ControlledPawn = GetPawn<APawn>())
 	{
