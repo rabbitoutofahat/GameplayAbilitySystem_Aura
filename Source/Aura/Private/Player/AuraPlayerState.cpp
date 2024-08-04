@@ -5,6 +5,7 @@
 
 AAuraPlayerState::AAuraPlayerState()
 {
+
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed); // Gameplay effects are replicated to the owning client only. Useful for multiplayer player-controlled actors
@@ -17,5 +18,8 @@ AAuraPlayerState::AAuraPlayerState()
 
 UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
 {
+
 	return AbilitySystemComponent;
+
 }
+
