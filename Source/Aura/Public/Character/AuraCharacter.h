@@ -6,6 +6,7 @@
 #include "Character/AuraCharacterBase.h"
 #include "AuraCharacter.generated.h"
 
+
 /**
  * 
  */
@@ -16,4 +17,10 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 
 public:
 	AAuraCharacter();
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+private:
+	void InitAbilityActorInfo(); // So we don't have to copy-paste the contents of the function for client and server
+
 };

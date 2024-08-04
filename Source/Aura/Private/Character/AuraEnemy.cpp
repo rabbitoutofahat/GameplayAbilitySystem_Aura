@@ -37,3 +37,11 @@ void AAuraEnemy::UnHighlightActor()
 
 
 }
+
+void AAuraEnemy::BeginPlay()
+{
+
+	Super::BeginPlay();
+	AbilitySystemComponent->InitAbilityActorInfo(this, this); // AI-controlled actors like this are both the owner actor and the avatar actor.
+
+}
