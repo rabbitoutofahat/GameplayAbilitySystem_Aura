@@ -7,6 +7,7 @@
 #include "AbilitySystemComponent.h"
 #include "AuraAttributeSet.generated.h"
 
+// For using the ATTRIBUTE_ACCESSORS macro
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -24,12 +25,18 @@ class AURA_API UAuraAttributeSet : public UAttributeSet
 
 public:
 	UAuraAttributeSet();
+	/**
+	* When creating a replicated attribute, we must do the following:
+	* 1. Add the ReplicatedUsing specifier and assign a RepNotify
+	* 2. Register the variable for replication in GetLifetimeReplicatedProps
+	* 3. Notify the Ability System of the replication with GAMEPLAYATTRIBUTE_REPNOTIFY (see .cpp file)
+	*/
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes") // Whenever an attribute is replicated down to the client, the client gets a rep notify, in this case called "OnRep_Health"
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health); // Requires class name and property name, creates the 'getter' for the health attribute (i.e. GetHealthAttribute)
-
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health); // Macro that creates the accessor function for the health attribute (i.e. GetHealthAttribute). Requires class name and property name
+    
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Vital Attributes")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth);
