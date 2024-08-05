@@ -92,8 +92,13 @@ void AAuraPlayerController::BeginPlay()
     check(AuraContext); // Check is going to halt execution if the condition pointed to by AuraContext. AuraContext will be evaluated as 'false' if it hasn't been set yet
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()); // Used to add mapping contexts
-	check(Subsystem);
-	Subsystem->AddMappingContext(AuraContext, 0);
+	if (Subsystem)
+	{
+
+		Subsystem->AddMappingContext(AuraContext, 0);
+
+	}
+	
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
