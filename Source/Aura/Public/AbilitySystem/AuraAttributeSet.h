@@ -35,7 +35,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes") // Whenever an attribute is replicated down to the client, the client gets a rep notify, in this case called "OnRep_Health"
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health); // Macro that creates the accessor function for the health attribute (i.e. GetHealthAttribute). Requires class name and property name
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health); // Macro that creates the accessor function for the health attribute (i.e. GetHealth). Requires class name and property name
     
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Vital Attributes")
 	FGameplayAttributeData MaxHealth;

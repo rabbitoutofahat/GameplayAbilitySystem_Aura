@@ -33,7 +33,7 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
 	OverlayWidget->SetWidgetController(WidgetController);
-
+	WidgetController->BroadcastInitialValues(); // As long as we're setting the widget controller and binding the blueprint events to it, then we can call BroadcastInitialValues
 	Widget->AddToViewport();
 
 }
