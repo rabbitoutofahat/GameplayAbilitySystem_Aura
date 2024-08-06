@@ -13,6 +13,12 @@ void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerPar
 
 }
 
+// Leave definitions blank so that OverlayWidgetController can override them
+
 void UAuraWidgetController::BroadcastInitialValues()
+{
+}
+
+void UAuraWidgetController::BindCallbacksToDependencies() 
 {
 }

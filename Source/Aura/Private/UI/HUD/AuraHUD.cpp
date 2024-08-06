@@ -11,8 +11,8 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 	{
 
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
-		OverlayWidgetController->SetWidgetControllerParams(WCParams);
-
+		OverlayWidgetController->SetWidgetControllerParams(WCParams); // Key attributes like health, mana, etc, are set
+		OverlayWidgetController->BindCallbacksToDependencies(); // When attributes or other dependencies are changed, those changes are broadcast
 		return OverlayWidgetController;
 
 	}
