@@ -13,22 +13,17 @@ class UGameplayEffect;
 UENUM(BlueprintType)
 enum EEffectApplicationPolicy
 {
-
 	ApplyOnOverlap,
 	ApplyOnEndOverlap,
 	DoNotApply
-
 };
 // Primarily for infinite gameplay effects
 UENUM(BlueprintType)
 enum EEffectRemovalPolicy
 {
-
 	RemoveOnEndOverlap,
 	DoNotRemove
-
 };
-
 
 UCLASS()
 class AURA_API AAuraEffectActor : public AActor
