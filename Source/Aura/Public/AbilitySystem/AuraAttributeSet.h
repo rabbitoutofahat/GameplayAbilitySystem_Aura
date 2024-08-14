@@ -17,7 +17,6 @@ GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 USTRUCT()
 struct FEffectProperties
 {
-
 	GENERATED_BODY()
 
 	FEffectProperties(){} // Default constructor that takes no arguments and does nothing
