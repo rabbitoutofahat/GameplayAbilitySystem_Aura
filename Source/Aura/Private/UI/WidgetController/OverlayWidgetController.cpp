@@ -35,7 +35,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged); // "" max mana ""
 
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda( // Broadcast asset tags from AuraASC to our overlay widget controller
-		[](const FGameplayTagContainer& AssetTags)
+		[](const FGameplayTagContainer& AssetTags) // Const reference to GameplayTagContainer
 		{
 
 			for (const FGameplayTag& Tag : AssetTags)
