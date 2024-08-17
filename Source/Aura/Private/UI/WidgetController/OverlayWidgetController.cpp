@@ -39,12 +39,20 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
+				/** 
+				* For example, say Tag = Message.HealthPotion 
+				* "Message.HealthPotion".MatchesTag("Message") will return True
+				* "Message".MatchesTag("Message.HealthPotion") will return False
+				*/
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				if (Tag.MatchesTag(MessageTag))
+				{
 
-				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
-				// The class that has this GetDataTableRowByTag member variable (THIS class, i.e. UOverlayWidgetController) must be captured in the lambda
-				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag); 
-				// Want to broadcast this row up to the widget
+					// The class that has this GetDataTableRowByTag member variable (THIS class, i.e., UOverlayWidgetController) must be captured in the lambda
+					FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					MessageWidgetRowDelegate.Broadcast(*Row); // Want to broadcast this row up to the widget
+
+				}
 
 			}
 		}
