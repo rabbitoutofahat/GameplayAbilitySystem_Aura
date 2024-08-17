@@ -35,17 +35,18 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged); // "" max mana ""
 
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda( // Broadcast asset tags from AuraASC to our overlay widget controller
-		[](const FGameplayTagContainer& AssetTags) // Const reference to GameplayTagContainer
+		[this](const FGameplayTagContainer& AssetTags) // Const reference to GameplayTagContainer
 		{
-
 			for (const FGameplayTag& Tag : AssetTags)
 			{
 
 				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
 				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
+				// The class that has this GetDataTableRowByTag member variable (THIS class, i.e. UOverlayWidgetController) must be captured in the lambda
+				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag); 
+				// Want to broadcast this row up to the widget
 
 			}
-
 		}
 	);
 
